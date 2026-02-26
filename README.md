@@ -31,25 +31,25 @@ One-Click Resume → System Back to Green
 ┌─────────────────────────────────────────────────────────────────┐
 │                        GANTRY 3.0                               │
 │                                                                 │
-│   ┌──────────────┐    WebSocket     ┌──────────────────────┐   │
-│   │  React+Vite  │◄────────────────►│   FastAPI Backend    │   │
-│   │  Frontend    │                  │   (api/main.py)      │   │
-│   │              │   REST /api/*    │                      │   │
-│   │  • Dashboard │◄────────────────►│  • WS telemetry loop │   │
-│   │  • CriticalOverlay             │  • MCP orchestration │   │
-│   │  • Agent Chat│                  │  • DRL inference     │   │
-│   │  • CostPanel │                  │  • Chat proxy        │   │
-│   └──────────────┘                  └──────────┬───────────┘   │
-│                                                │               │
-│        ┌───────────────────────────────────────┤               │
-│        │               │               │       │               │
-│        ▼               ▼               ▼       ▼               │
-│   ┌─────────┐   ┌────────────┐  ┌──────────┐  ┌──────────┐   │
-│   │Elastic  │   │  Elastic   │  │  DRL     │  │  Agent   │   │
-│   │   ES    │   │  Kibana    │  │  Model   │  │ Builder  │   │
-│   │(telemetry│  │(MCP tools) │  │(PPO/SB3) │  │/converse │   │
-│   │personnel)│  │            │  │          │  │          │   │
-│   └─────────┘   └────────────┘  └──────────┘  └──────────┘   │
+│   ┌──────────────┐    WebSocket     ┌──────────────────────┐    │
+│   │  React+Vite  │◄────────────────►│   FastAPI Backend    │    │
+│   │  Frontend    │                  │   (api/main.py)      │    │
+│   │              │   REST /api/*    │                      │    │
+│   │  • Dashboard │◄────────────────►│  • WS telemetry loop │    │
+│   │  • CriticalOverlay              │  • MCP orchestration │    │
+│   │  • Agent Chat│                  │  • DRL inference     │    │
+│   │  • CostPanel │                  │  • Chat proxy        │    │
+│   └──────────────┘                  └──────────┬───────────┘    │
+│                                                │                │
+│        ┌───────────────────────────────────────┤                │
+│        │               │               │       │                │
+│        ▼               ▼               ▼       ▼                │
+│   ┌─────────┐   ┌────────────┐  ┌──────────┐  ┌──────────┐      │
+│   │Elastic  │   │  Elastic   │  │  DRL     │  │  Agent   │      │
+│   │   ES    │   │  Kibana    │  │  Model   │  │ Builder  │      │
+│   │(telemetry│  │(MCP tools) │  │(PPO/SB3) │  │/converse │      │
+│   │personnel)│  │            │  │          │  │          │      │
+│   └─────────┘   └────────────┘  └──────────┘  └──────────┘      │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
@@ -97,12 +97,12 @@ A deterministic rule-based policy (`RUL < 10 → ORDER`) runs in parallel with t
 
 ### Maintenance Cost Comparison
 
-| Strategy       | Cost / Event | Downtime |
-|----------------|-------------|---------|
-| Reactive       | $18,500      | 72 h    |
-| Preventive     | $7,200       | 24 h    |
-| **Predictive AI** | **$2,800** | **4 h** |
-| **Savings**    | **$15,700**  | **68 h** |
+| Strategy          | Cost / Event | Downtime |
+| ----------------- | ------------ | -------- |
+| Reactive          | $18,500      | 72 h     |
+| Preventive        | $7,200       | 24 h     |
+| **Predictive AI** | **$2,800**   | **4 h**  |
+| **Savings**       | **$15,700**  | **68 h** |
 
 ---
 
@@ -297,13 +297,13 @@ This injects a `RUL=0` document directly into Elasticsearch and broadcasts a cri
 
 Type in the chat panel at any time:
 
-| Query | Response |
-|-------|----------|
-| `status` | Current RUL, vibration, unit status from live telemetry |
-| `cost` | Cost comparison between maintenance strategies |
-| `crew` | Technician name, shift remaining, availability |
-| `Override` | Human-in-the-loop flag — flips the DRL decision |
-| `help` | Full command menu |
+| Query      | Response                                                |
+| ---------- | ------------------------------------------------------- |
+| `status`   | Current RUL, vibration, unit status from live telemetry |
+| `cost`     | Cost comparison between maintenance strategies          |
+| `crew`     | Technician name, shift remaining, availability          |
+| `Override` | Human-in-the-loop flag — flips the DRL decision         |
+| `help`     | Full command menu                                       |
 
 ---
 
@@ -375,41 +375,41 @@ proxy: {
 
 ## API Reference
 
-| Method | Path | Description |
-|--------|------|-------------|
-| `GET` | `/` | Health check |
-| `GET` | `/api/status` | Halt state, downtime seconds |
-| `GET` | `/units` | List available unit IDs |
-| `GET` | `/orchestrate/{unit_id}` | Run full MCP orchestration |
-| `POST` | `/api/broadcast-alert` | Inject failure alert (trigger_failure.py) |
-| `POST` | `/system-resume` | Clear halt, start grace window |
-| `POST` | `/chat` | Agent Builder chat proxy |
-| `WS` | `/ws/telemetry/{unit_id}` | Live telemetry stream |
+| Method | Path                      | Description                               |
+| ------ | ------------------------- | ----------------------------------------- |
+| `GET`  | `/`                       | Health check                              |
+| `GET`  | `/api/status`             | Halt state, downtime seconds              |
+| `GET`  | `/units`                  | List available unit IDs                   |
+| `GET`  | `/orchestrate/{unit_id}`  | Run full MCP orchestration                |
+| `POST` | `/api/broadcast-alert`    | Inject failure alert (trigger_failure.py) |
+| `POST` | `/system-resume`          | Clear halt, start grace window            |
+| `POST` | `/chat`                   | Agent Builder chat proxy                  |
+| `WS`   | `/ws/telemetry/{unit_id}` | Live telemetry stream                     |
 
 ---
 
 ## Environment Variables Reference
 
-| Variable | Required | Description |
-|----------|----------|-------------|
-| `ELASTIC_KB_URL` | ✅ | Kibana base URL (`https://...elastic.cloud`) |
-| `ELASTIC_MCP_API_KEY` | ✅ | API key for MCP tool calls |
-| `ELASTIC_CONVERSE_API_KEY` | ✅ | API key for Agent Builder `/converse` |
-| `ELASTIC_ES_URL` | ✅ | Elasticsearch base URL |
-| `ELASTIC_ES_API_KEY` | ✅ | API key for telemetry read/write |
-| `ELASTIC_AGENT_ID` | ✅ | Agent Builder agent ID (default: `gantry_orchestrator`) |
+| Variable                   | Required | Description                                             |
+| -------------------------- | -------- | ------------------------------------------------------- |
+| `ELASTIC_KB_URL`           | ✅       | Kibana base URL (`https://...elastic.cloud`)            |
+| `ELASTIC_MCP_API_KEY`      | ✅       | API key for MCP tool calls                              |
+| `ELASTIC_CONVERSE_API_KEY` | ✅       | API key for Agent Builder `/converse`                   |
+| `ELASTIC_ES_URL`           | ✅       | Elasticsearch base URL                                  |
+| `ELASTIC_ES_API_KEY`       | ✅       | API key for telemetry read/write                        |
+| `ELASTIC_AGENT_ID`         | ✅       | Agent Builder agent ID (default: `gantry_orchestrator`) |
 
 ---
 
 ## MCP Tools Used
 
-| Tool | Purpose |
-|------|---------|
-| `get_telemetry_status` | Fetch latest sensor readings for a unit |
-| `inventory_procurement` | Check parts stock and request express shipping |
-| `personnel_locator` | Find available technicians by shift |
-| `platform_core_execute_esql` | Run arbitrary ES\|QL queries |
-| `observability_get_alerts` | Check for active Elastic observability alerts |
+| Tool                         | Purpose                                        |
+| ---------------------------- | ---------------------------------------------- |
+| `get_telemetry_status`       | Fetch latest sensor readings for a unit        |
+| `inventory_procurement`      | Check parts stock and request express shipping |
+| `personnel_locator`          | Find available technicians by shift            |
+| `platform_core_execute_esql` | Run arbitrary ES\|QL queries                   |
+| `observability_get_alerts`   | Check for active Elastic observability alerts  |
 
 ---
 
