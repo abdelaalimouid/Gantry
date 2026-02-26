@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  background: #0f172a;
+  color: #e2e8f0;
+  -webkit-font-smoothing: antialiased;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #1e293b; }
+::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+
+@keyframes glow-green {
+  0%, 100% { filter: drop-shadow(0 0 6px #16a34a); }
+  50%      { filter: drop-shadow(0 0 14px #22c55e); }
+}
+@keyframes glow-red {
+  0%, 100% { filter: drop-shadow(0 0 6px #ef4444); }
+  50%      { filter: drop-shadow(0 0 14px #ef4444); }
+}
+.glow-green { animation: glow-green 2s ease-in-out infinite; }
+.glow-red   { animation: glow-red 2s ease-in-out infinite; }
+
+/* Crane container pulse for telemetry-critical state */
+@keyframes crane-pulse-red {
+  0%, 100% { filter: drop-shadow(0 0 8px rgba(239, 68, 68, 0.3)); }
+  50%      { filter: drop-shadow(0 0 28px rgba(239, 68, 68, 0.7)); }
+}
+.crane-pulse-red {
+  animation: crane-pulse-red 1.5s ease-in-out infinite;
+}
