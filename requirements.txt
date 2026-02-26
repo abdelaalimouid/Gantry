@@ -1,0 +1,11 @@
+fastapi
+uvicorn[standard]
+python-dotenv
+httpx
+gymnasium
+stable-baselines3
+elasticsearch
+pandas
+requests
+numpy
+websockets
